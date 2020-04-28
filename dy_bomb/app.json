@@ -1,0 +1,17 @@
+{
+  "name": "dy_bombbbbb",
+  "displayName": "dy_bombbbbb",
+  "expo": {
+    "name": "dy_bombbbbb",
+    "slug": "dy_bombbbbb",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
