@@ -53,6 +53,6 @@ const TodoListContextProvider = ({children}:Props) => {
         </TodoListContext.Provider>
 
     )
-}
+})
 
 export {TodoListContextProvider, TodoListContext}

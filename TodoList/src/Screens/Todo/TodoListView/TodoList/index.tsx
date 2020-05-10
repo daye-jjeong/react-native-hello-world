@@ -11,6 +11,8 @@ import TodoItem from './TodoItem';
 const Container = Styled(FlatList)`
 `;
 
+
+
 interface Props {}
 
 const TodoList = ({}: Props) => {

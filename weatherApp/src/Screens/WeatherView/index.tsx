@@ -1,6 +1,5 @@
-
-import React, { useEffect, useState } from 'react';
-import { FlatList, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Alert} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 import Styled from 'styled-components/native';
@@ -8,53 +7,53 @@ import Styled from 'styled-components/native';
 const Container = Styled.SafeAreaView`
     flex: 1;
     background-color: #EEE
-`
+`;
 
 const WeatherContainer = Styled(FlatList)``;
 
 const LoadingView = Styled.View`
     flex:1;
     justify-content: center;
-    align-items: center
-`
+    align-items: center;
+`;
 const Loading = Styled.ActivityIndicator`
-    margin-bottom: 16px
-`
+    margin-bottom: 16px;
+`;
 
 const LoadingLabel = Styled.Text`
     font-size: 16px;
-`
+`;
 
 const WeatherItemContainer = Styled.View`
     height: 100%;
     justify-content: center;
     align-items: center;
-`
+`;
 
-const Weather = Styled.View`
+const Weather = Styled.Text`
     margin-bottom: 16px;
     font-size: 24px;
     font-weight: bold;
-`
+`;
 
 const Temperature = Styled.Text`
-    font-size: 16px
-` 
+    font-size: 16px;
+`;
 
-const API_KEY = 'dc7225f441c907136b93e382f882c358'
+const API_KEY = 'dc7225f441c907136b93e382f882c358';
 
 interface IWeahter {
     temperature?: number;
     weather?: string;
     isLoading: boolean;
-}
+};
 
-const WeatherView = ({}: Props) => {
+const WeatherView = () => {
     const [weatherInfo, setWeatherInfo] = useState<IWeahter>({
         temperature: undefined,
         weather: undefined,
         isLoading: false
-    })
+    });
 
     const getCurrentWeather = () => {
         setWeatherInfo({
@@ -62,10 +61,12 @@ const WeatherView = ({}: Props) => {
         });
         Geolocation.getCurrentPosition(
             position => {
-                const {lat, lon} = position.coords
-                fetch(
-                    `http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric`
-                )
+                const {latitude, longitude} = position.coords;
+                console.log(latitude, longitude)
+                const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`
+                console.log(url)
+
+                fetch(url)
                 .then(res => res.json())
                 .then(json => {
                     setWeatherInfo({
@@ -113,7 +114,7 @@ const WeatherView = ({}: Props) => {
                 refreshing={!isLoading}
                 data={data}
                 keyExtractor={(item, index) => {
-                    return `weather-${idnex}`
+                    return `weather-${index}`
                 }}
                 ListEmptyComponent={
                     <LoadingView>
@@ -124,7 +125,7 @@ const WeatherView = ({}: Props) => {
                 renderItem={({item, index}) => (
                     <WeatherItemContainer>
                         <Weather>{(item as IWeahter).weather}</Weather>
-                        <Temperature>({(Item as IWeahter).Temperature} C)</Temperature>
+                        <Temperature>({(item as IWeahter).temperature} C)</Temperature>
                     </WeatherItemContainer>
                 )}
                 contentContainerStyle={{flex:1}}
